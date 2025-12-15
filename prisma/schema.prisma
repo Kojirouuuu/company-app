@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Company {
+  name             String
+  furigana         String?
+  kind             String
+  post_code        String?
+  prefecture_name  String?
+  city_name        String?
+  street_number    String?
+  assignment_date  DateTime   @db.Date
+  corporate_number String     @id
+
+  @@map("companies")
+}
