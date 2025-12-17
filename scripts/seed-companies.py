@@ -44,7 +44,8 @@ names = [
 # .env.exampleを参考に.envを作成しよう！
 load_dotenv()
 
-engine = os.getenv("DATABASE_URL")
+#if you want to use supabase, you can use env("DIRECT_URL"), otherwise use env("DATABASE_URL")
+engine = os.getenv("DIRECT_URL")
 
 # prismaが勝手に作成するDATABASE_URLには?schemaが語尾につくので、念の為削除
 if "?" in engine:
