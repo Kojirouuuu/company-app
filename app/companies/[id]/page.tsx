@@ -5,6 +5,7 @@ import { Building2, MapPin, Calendar, Hash, Tag, ArrowLeft, Share2, Bookmark, Ex
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
     const { id } = await params;
@@ -31,7 +32,29 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     };
 }
 
-export default async function CompanyDetailPage({ params }: { params: Promise<{ id: string }> }) {
+function CompanyDetailSkeleton() {
+    return (
+        <div className="py-8 md:py-12">
+            <Container>
+                <div className="h-10 bg-slate-800/50 rounded-lg w-32 mb-8 animate-pulse" />
+                <div className="bg-slate-800/30 rounded-2xl p-6 md:p-8 mb-8 animate-pulse">
+                    <div className="h-8 bg-slate-700 rounded w-1/3 mb-4" />
+                    <div className="h-4 bg-slate-700 rounded w-1/2" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    {[...Array(4)].map((_, i) => (
+                        <div key={i} className="bg-slate-800/30 rounded-xl p-5 animate-pulse">
+                            <div className="h-6 bg-slate-700 rounded w-1/2 mb-2" />
+                            <div className="h-4 bg-slate-700 rounded w-3/4" />
+                        </div>
+                    ))}
+                </div>
+            </Container>
+        </div>
+    );
+}
+
+async function CompanyDetailContent({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const company = await getCompanyById(id.toString());
 
@@ -173,5 +196,13 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
                 </div>
             </Container>
         </div>
-    )
+    );
+}
+
+export default function CompanyDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    return (
+        <Suspense fallback={<CompanyDetailSkeleton />}>
+            <CompanyDetailContent params={params} />
+        </Suspense>
+    );
 }

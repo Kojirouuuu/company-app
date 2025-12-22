@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@/components/ui';
 import { Building2, Mail, Phone, MapPin, Twitter, Linkedin, Facebook } from 'lucide-react';
 import Link from 'next/link';
@@ -43,7 +41,8 @@ const footerLinks = {
   },
 };
 
-export function Footer() {
+export async function Footer() {
+  "use cache";
   const currentYear = new Date().getFullYear();
 
   return (
