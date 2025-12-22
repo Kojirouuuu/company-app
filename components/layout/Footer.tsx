@@ -44,6 +44,8 @@ const footerLinks = {
 };
 
 export function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-slate-900 border-t border-slate-800">
       <Container className="py-16">
@@ -129,7 +131,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-slate-800 text-center">
           <p className="text-slate-500 text-sm">
-            &copy; {new Date().getFullYear()} CorpData Inc. All rights reserved.
+            &copy; {currentYear} CorpData Inc. All rights reserved.
           </p>
         </div>
       </Container>
