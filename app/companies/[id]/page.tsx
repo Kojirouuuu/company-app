@@ -4,6 +4,32 @@ import { Container } from "@/components/ui";
 import { Building2, MapPin, Calendar, Hash, Tag, ArrowLeft, Share2, Bookmark, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+    const { id } = await params;
+    const company = await getCompanyById(id.toString());
+    if (!company) {
+        return {
+            title: "企業が見つかりません | CorpData",
+            description: "指定された企業情報が見つかりませんでした。",
+            openGraph: {
+                title: "企業が見つかりません | CorpData",
+                description: "指定された企業情報が見つかりませんでした。",
+                type: "website",
+            },
+        };
+    }
+    return {
+        title: `${company.name} | CorpData - 全国企業情報データベース`,
+        description: `${company.name}の企業情報を閲覧できます。`,
+        openGraph: {
+            title: `${company.name} | CorpData`,
+            description: `${company.name}の企業情報`,
+            type: "website",
+        },
+    };
+}
 
 export default async function CompanyDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
