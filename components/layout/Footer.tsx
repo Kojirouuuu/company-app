@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@/components/ui';
 import { Building2, Mail, Phone, MapPin, Twitter, Linkedin, Facebook } from 'lucide-react';
 import Link from 'next/link';
