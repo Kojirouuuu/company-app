@@ -41,7 +41,7 @@ const footerLinks = {
   },
 };
 
-export function Footer() {
+export async function Footer() {
   "use cache";
   const currentYear = new Date().getFullYear();
 
